@@ -1,10 +1,12 @@
 <template>
-  <h1 class="todo-header">
-    <span>h</span>
-    <span>e</span>
-    <span>l</span>
-    <span>l</span>
-    <span>o</span>
+  <div class="header">
+    <h1 class="hello">
+      <span>h</span>
+      <span>e</span>
+      <span>l</span>
+      <span>l</span>
+      <span>o</span>
+      <span>,</span>
     </h1>
     <h5 class="date">
       {{ dayOfWeek }}, <span class="normal">{{ date }} {{ month }} {{ year }}</span>
@@ -38,17 +40,25 @@ export default {
         year: 'numeric'
       });
     }
-}
+  }
 };
 </script>
 
-<style>
-.todo-header {
-  font-size: 100px;
+<style lang="scss" scoped>
+.header {
   text-align: center;
-  font-weight: bold;
-  /* letter-spacing: 7px; */
-  color: #D10E7A;
+  color: #e2b5b5;
+}
+.hello {
+  font-size: 100px;
+  font-weight: 100;
   margin: 20px 0;
+}
+
+.date {
+  text-transform: uppercase;
+  .normal {
+    font-weight: normal;
+  }
 }
 </style>
