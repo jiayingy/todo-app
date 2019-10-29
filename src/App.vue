@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <TodoAppHeader/>
+    <TodoAppHeader />
   </div>
 </template>
 
 <script>
-import TodoAppHeader from './components/TodoAppHeader.vue'
+import TodoAppHeader from './components/TodoAppHeader.vue';
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     TodoAppHeader
   }
-}
+};
 </script>
 
 <style lang="scss">
