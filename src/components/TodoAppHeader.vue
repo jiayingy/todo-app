@@ -15,7 +15,11 @@
 </template>
 
 <script>
+import CalendarPicker from '@jiayingy/vue-single-date-picker';
 export default {
+  components: {
+    CalendarPicker
+  },
   data () {
     return {
       selectedDate: new Date()

@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.1.2",
     "vue": "^2.6.10",
-    "@jiayingy/vue-single-date-picker": "0.1.0"
+    "@jiayingy/vue-single-date-picker": "0.3.7"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.0.0",
