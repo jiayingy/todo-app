@@ -18,7 +18,10 @@
       >
         {{ dayOfWeek }}, <span class="normal">{{ date }} {{ month }} {{ year }}</span>
       </h5>
-      <CalendarPicker v-if="isOpen" />
+      <CalendarPicker
+        v-show="isOpen"
+        @selectDate="updateSelectedDate"
+      />
     </div>
   </div>
 </template>
@@ -53,7 +56,7 @@ export default {
       return this.selectedDate.toLocaleString('en-US', {
         year: 'numeric'
       });
-    }
+    },
   },
   created() {
     window.addEventListener('click', this.closeCalendarOnClick);
@@ -66,10 +69,17 @@ export default {
       this.isOpen = !this.isOpen;
     },
     closeCalendarOnClick(event) {
-      const calendarPickerEl = document.getElementById('date-picker');
-      if (this.isOpen && !calendarPickerEl.contains(event.target)) {
-        this.isOpen = false;
-      }
+      if (this.isOpen) {
+        const datePickerEl = document.getElementById('date-picker');
+        const isWithinDatePicker = datePickerEl.contains(event.target);
+        const isDateSelected = event.target.classList.contains('date');
+        if (!isWithinDatePicker || isDateSelected) {
+          this.isOpen = false;
+        }
+      } 
+    },
+    updateSelectedDate(obj) {
+      this.selectedDate = new Date(obj.year, obj.month, obj.date);
     }
   }
 };
@@ -101,6 +111,7 @@ export default {
   .calendar-view {
     position: absolute;
     left: 50%;
+    min-width: 300px;
   }
 }
 </style>
