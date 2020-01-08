@@ -20,6 +20,7 @@
       </h5>
       <CalendarPicker
         v-show="isOpen"
+        :style="{left: `${clickPosX}px`}"
         @selectDate="updateSelectedDate"
       />
     </div>
@@ -35,7 +36,8 @@ export default {
   data () {
     return {
       selectedDate: new Date(),
-      isOpen: false
+      isOpen: false,
+      clickPosX: 0,
     };
   },
   computed: {
@@ -59,16 +61,17 @@ export default {
     },
   },
   created() {
-    window.addEventListener('click', this.closeCalendarOnClick);
+    window.addEventListener('click', this.handleClickEvent);
   },
   destroyed() {
-    window.removeEventListener('click', this.closeCalendarOnClick);
+    window.removeEventListener('click', this.handleClickEvent);
   },
   methods: {
     toggleCalendar() {
       this.isOpen = !this.isOpen;
     },
-    closeCalendarOnClick(event) {
+    handleClickEvent(event) {
+      this.clickPosX = event.clientX;
       if (this.isOpen) {
         const datePickerEl = document.getElementById('date-picker');
         const isWithinDatePicker = datePickerEl.contains(event.target);
