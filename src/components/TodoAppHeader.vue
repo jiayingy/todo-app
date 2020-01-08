@@ -8,12 +8,16 @@
       <span>o</span>
       <span>,</span>
     </h1>
+    <div
+      id="date-picker"
+      class="date-picker"
+    >
       <h5
         class="date"
         @click="toggleCalendar"
       >
-      {{ dayOfWeek }}, <span class="normal">{{ date }} {{ month }} {{ year }}</span>
-    </h5>
+        {{ dayOfWeek }}, <span class="normal">{{ date }} {{ month }} {{ year }}</span>
+      </h5>
       <CalendarPicker v-if="isOpen" />
     </div>
   </div>
@@ -27,6 +31,7 @@ export default {
   },
   data () {
     return {
+      selectedDate: new Date(),
       isOpen: false
     };
   },
@@ -49,9 +54,23 @@ export default {
         year: 'numeric'
       });
     }
+  },
+  created() {
+    window.addEventListener('click', this.closeCalendarOnClick);
+  },
+  destroyed() {
+    window.removeEventListener('click', this.closeCalendarOnClick);
+  },
+  methods: {
     toggleCalendar() {
       this.isOpen = !this.isOpen;
     },
+    closeCalendarOnClick(event) {
+      const calendarPickerEl = document.getElementById('date-picker');
+      if (this.isOpen && !calendarPickerEl.contains(event.target)) {
+        this.isOpen = false;
+      }
+    }
   }
 };
 </script>
@@ -73,6 +92,15 @@ export default {
   text-transform: uppercase;
   .normal {
     font-weight: normal;
+  }
+}
+
+.date-picker {
+  position: relative;
+  cursor: pointer;
+  .calendar-view {
+    position: absolute;
+    left: 50%;
   }
 }
 </style>
