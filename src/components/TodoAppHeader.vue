@@ -8,9 +8,14 @@
       <span>o</span>
       <span>,</span>
     </h1>
-    <h5 class="date">
+      <h5
+        class="date"
+        @click="toggleCalendar"
+      >
       {{ dayOfWeek }}, <span class="normal">{{ date }} {{ month }} {{ year }}</span>
     </h5>
+      <CalendarPicker v-if="isOpen" />
+    </div>
   </div>
 </template>
 
@@ -22,7 +27,7 @@ export default {
   },
   data () {
     return {
-      selectedDate: new Date()
+      isOpen: false
     };
   },
   computed: {
@@ -44,11 +49,16 @@ export default {
         year: 'numeric'
       });
     }
+    toggleCalendar() {
+      this.isOpen = !this.isOpen;
+    },
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import '~@jiayingy/vue-single-date-picker/dist/vue-single-date-picker.css';
+
 .header {
   text-align: center;
   color: #e2b5b5;
