@@ -16,10 +16,10 @@
         class="date"
         @click="toggleCalendar"
       >
-        {{ dayOfWeek }}, <span class="normal">{{ date }} {{ month }} {{ year }}</span>
+        {{ dayOfWeek }}, {{ date }} {{ month }} {{ year }}
       </h5>
       <CalendarPicker
-        v-show="isOpen"
+        v-show="showCalendar"
         :style="{left: `${clickPosX}px`}"
         @selectDate="updateSelectedDate"
       />
@@ -36,7 +36,7 @@ export default {
   data () {
     return {
       selectedDate: new Date(),
-      isOpen: false,
+      showCalendar: false,
       clickPosX: 0,
     };
   },
@@ -68,16 +68,17 @@ export default {
   },
   methods: {
     toggleCalendar() {
-      this.isOpen = !this.isOpen;
+      this.showCalendar = !this.showCalendar;
     },
     handleClickEvent(event) {
       this.clickPosX = event.clientX;
-      if (this.isOpen) {
+      console.log(event.target);
+      if (this.showCalendar) {
         const datePickerEl = document.getElementById('date-picker');
         const isWithinDatePicker = datePickerEl.contains(event.target);
         const isDateSelected = event.target.classList.contains('date');
         if (!isWithinDatePicker || isDateSelected) {
-          this.isOpen = false;
+          this.showCalendar = false;
         }
       } 
     },
@@ -94,6 +95,10 @@ export default {
 .header {
   text-align: center;
   color: #e2b5b5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .hello {
   font-size: 100px;
@@ -103,9 +108,6 @@ export default {
 
 .date {
   text-transform: uppercase;
-  .normal {
-    font-weight: normal;
-  }
 }
 
 .date-picker {
