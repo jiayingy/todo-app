@@ -76,7 +76,7 @@ export default {
       if (this.showCalendar) {
         const datePickerEl = document.getElementById('date-picker');
         const isWithinDatePicker = datePickerEl.contains(event.target);
-        const isDateSelected = event.target.classList.contains('date');
+        const isDateSelected = event.target.classList.contains('single-date-picker__date');
         if (!isWithinDatePicker || isDateSelected) {
           this.showCalendar = false;
         }
