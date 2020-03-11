@@ -57,12 +57,13 @@ input {
   width: 100%;
 }
 ::placeholder {
-  color: #D8D8D8;
+  color: #979797;
 }
 
 .todo-chars-count {
   text-align: right;
   text-transform: uppercase;
   font-size: 0.8em;
+  color: #D8D8D8;
 }
 </style>
