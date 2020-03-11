@@ -3,6 +3,7 @@
     v-model="todo"
     type="text"
     placeholder="What would you like to work on today?"
+    maxlength="250"
     @keydown.enter="addNewTodo"
   >
 </template>
@@ -28,10 +29,15 @@ export default {
 input {
   border: 0;
   outline: none;
-  padding: 5px;
+  padding: 15px 0;
   font-size: 16px;
   background-color: transparent;
   width: 400px;
-  text-align: center;
+  text-align: left;
+  font-family: 'Century Gothic', 'Helvetica', 'Arial', sans-serif;
+  border-bottom: 1px solid #979797;
+}
+::placeholder {
+  color: #D8D8D8;
 }
 </style>
