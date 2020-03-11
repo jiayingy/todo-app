@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <TodoAppHeader />
-    <TodoInput />
-    <TodoList />
+    <TodoAppHeader class="grid__item" />
+    <div class="todo-wrapper grid__item">
+      <TodoInput />
+      <TodoList />
+    </div>
   </div>
 </template>
 
@@ -23,6 +25,19 @@ export default {
 
 <style lang="scss">
 #app {
+  min-width: 450px;
+  max-width: 800px;
   text-align: center;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  margin: auto;
+}
+
+.grid__item {
+  grid-column: 3/-3;
+}
+
+.todo-wrapper {
+  width: 100%;
 }
 </style>
