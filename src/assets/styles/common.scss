@@ -1,6 +1,7 @@
-@import './font';
 @import './variables.scss';
+@import './font';
 
 body {
-  background-color: #eeeeee;
+  background-color: $background-grey;
+  font-family: 'Century Gothic', 'Helvetica', 'Arial', sans-serif;
 }
