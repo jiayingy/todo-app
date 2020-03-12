@@ -1,4 +1,4 @@
-export const todoStore = {
+export const storeTodo = {
   state: {
     list: []
   },

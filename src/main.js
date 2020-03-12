@@ -4,14 +4,14 @@ import Vuex from 'vuex';
 import App from './App.vue';
 import './assets/styles/common.scss';
 
-import {todoStore} from './todo-app-store';
+import {storeTodo} from './store-todos';
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: {
-    todos: todoStore
+    todos: storeTodo
   }
 });
 
