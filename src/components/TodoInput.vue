@@ -22,12 +22,23 @@ export default {
       charsLeft: TODO_MAX_CHARS
     }
   },
+  computed: {
+    todosCount() {
+      return this.$store.getters.count;
+    }
+  },
   watch: {
     todo(val) {
       if (val) {
         this.charsLeft = TODO_MAX_CHARS - val.length;
       } else {
         this.charsLeft = TODO_MAX_CHARS;
+      }
+    },
+    todosCount(newCount, oldCount) {
+      if (newCount > oldCount) { 
+        // new todo added successfully
+        this.todo = '';
       }
     }
   },
