@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$todo-padding: 12px 5px;
+$todo-padding: 15px 5px;
 $todo-border-color: #dedede;
 
 .todo {
@@ -36,8 +36,8 @@ $todo-border-color: #dedede;
   background-color: white;
   border: 1px solid $todo-border-color;
   display: grid;
-  grid-template-columns: 50px 1fr 50px;
-  align-items: center;
+  grid-template-columns: 50px minmax(0, 1fr) 50px;
+  align-items: stretch;
 
   > div {
     padding: $todo-padding;
@@ -53,7 +53,10 @@ $todo-border-color: #dedede;
   }
   .todo-content {
     text-align: left;
-    padding: 12px 15px;
+    padding: 15px 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   .todo-delete {
     outline: none;
