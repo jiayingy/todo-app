@@ -8,6 +8,9 @@ export const storeTodo = {
     },
     completed: state => {
       return state.list.filter(todo => todo.completed)
+    },
+    undone: state => {
+      return state.list.filter(todo => !todo.completed);
     }
   },
   mutations: {
