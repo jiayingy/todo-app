@@ -4,11 +4,21 @@
       class="todo-mark-complete"
       @click="markComplete"
     >
-      <i class="material-icons">
+      <i
+        class="material-icons"
+        :style="{
+          color: `${todo.completed ? '#47D89B' : ''}`
+        }"
+      >
         check
       </i>
     </div>
-    <div class="todo-content">
+    <div
+      class="todo-content"
+      :style="{
+        textDecoration: `${todo.completed ? 'line-through' : 'none'}`
+      }"
+    >
       {{ todo.content }}
     </div>
     <div class="todo-delete">
@@ -29,7 +39,9 @@ export default {
   },
   methods: {
     markComplete() {
-      this.$store.commit('markComplete', this.todo.index);
+      if (!this.todo.completed) {
+        this.$store.commit('markComplete', this.todo.index);
+      }
     }
   }
 }
