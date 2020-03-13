@@ -1,6 +1,9 @@
 <template>
   <div class="todo">
-    <div class="todo-mark-complete">
+    <div
+      class="todo-mark-complete"
+      @click="markComplete"
+    >
       <i class="material-icons">
         check
       </i>
@@ -22,6 +25,16 @@ export default {
     todo: {
       type: Object,
       default: () => {}
+    }
+  },
+  computed: {
+    todoKey() {
+      return this.$vnode.key;
+    }
+  },
+  methods: {
+    markComplete() {
+      this.$store.commit('markComplete', this.todoKey);
     }
   }
 }

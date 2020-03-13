@@ -5,6 +5,9 @@ export const storeTodo = {
   getters: {
     count: state => {
       return state.list.length;
+    },
+    completed: state => {
+      return state.list.filter(todo => todo.completed)
     }
   },
   mutations: {
@@ -14,5 +17,15 @@ export const storeTodo = {
         timestamp: new Date()
       })
     },
+    markComplete(state, index) {
+      state.list = [
+        ...state.list.slice(0, index),
+        {
+          ...state.list[index],
+          completed: true
+        },
+        ...state.list.slice(index+1)
+      ];
+    }
   },
 }
