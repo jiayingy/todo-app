@@ -27,14 +27,9 @@ export default {
       default: () => {}
     }
   },
-  computed: {
-    todoKey() {
-      return this.$vnode.key;
-    }
-  },
   methods: {
     markComplete() {
-      this.$store.commit('markComplete', this.todoKey);
+      this.$store.commit('markComplete', this.todo.index);
     }
   }
 }

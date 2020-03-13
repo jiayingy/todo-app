@@ -14,7 +14,8 @@ export const storeTodo = {
     add(state, newTodo) {
       state.list.push({
         content: newTodo,
-        timestamp: new Date()
+        timestamp: new Date(),
+        index: state.list.length
       })
     },
     markComplete(state, index) {
