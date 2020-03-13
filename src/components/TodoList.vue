@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="todo-list">
     <TodoItem
       v-for="(todo, index) in todoList"
       :key="index"
@@ -55,6 +55,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.todo-list {
+  margin-top: 40px;
+}
 </style>
