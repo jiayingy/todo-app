@@ -4,12 +4,15 @@ export const storeTodo = {
   },
   getters: {
     count: state => {
-      return state.todos.length;
+      return state.list.length;
     }
   },
   mutations: {
     add(state, newTodo) {
-      state.list.push(newTodo)
+      state.list.push({
+        content: newTodo,
+        timestamp: new Date()
+      })
     },
   },
 }
