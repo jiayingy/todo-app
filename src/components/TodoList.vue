@@ -1,8 +1,13 @@
 <template>
   <div class="todo-list">
     <TodoItem
-      v-for="(todo, index) in todoList"
-      :key="index"
+      v-for="todo in undone"
+      :key="todo.index"
+      :todo="todo"
+    />
+    <TodoItem
+      v-for="todo in completed"
+      :key="todo.index"
       :todo="todo"
     />
   </div>
@@ -27,8 +32,11 @@ export default {
     }
   },
   computed: {
-    todoList() {
-      return this.$store.state.todos.list;
+    undone() {
+      return this.$store.getters.undone;
+    },
+    completed() {
+      return this.$store.getters.completed;
     }
   },
   created() {
