@@ -8443,10 +8443,10 @@ vue-loader@^15.7.0:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-single-date-picker@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vue-single-date-picker/-/vue-single-date-picker-1.0.0.tgz#379d563f25d893d6cd300bcfb796bd5345a1abd8"
-  integrity sha512-AF/FfSEHNFJLJkst5XaRVy9/s1VwaD43oOijSh84EiqS5H36sPZJvqu1UNsbMmVt4ofe2LKW+vxTar3sU2bUeg==
+vue-single-date-picker@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/vue-single-date-picker/-/vue-single-date-picker-0.4.4.tgz#1e121554570704d0a66dfd651423f12842d7664d"
+  integrity sha512-1Zw0T3wVQjdEDA5x3uZp7dFs/hjYRFg9agfO8DPg0tSQf4XhOL1P2OjDEIRYGphvXFji804maAE8FxuQz25m/Q==
   dependencies:
     core-js "^3.3.2"
     node-sass "^4.13.0"
