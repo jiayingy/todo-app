@@ -40,26 +40,8 @@ export default {
     }
   },
   created() {
-    // this.createDb();
+    this.$store.dispatch('createDb');
   },
-  methods: {
-    // createDb() {
-    //   let dbReq = indexedDB.open('todo-app', 1);
-    //   dbReq.onupgradeneeded = (event) => {
-    //     this.db = event.target.result;
-    //   }
-
-    //   dbReq.onsuccess = (event) => {
-    //     this.db = event.target.result;
-    //     console.log(this.db)
-    //   }
-
-    //   dbReq.onerror = (event) => {
-    //     this.dbError = true;
-    //     alert('Error retrieving todo list, please try again later')
-    //   }
-    // }
-  }
 }
 </script>
 

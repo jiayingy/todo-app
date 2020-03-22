@@ -45,7 +45,7 @@ export default {
   methods: {
     addNewTodo() {
       if (this.todo) {
-        this.$store.commit('add', this.todo);
+        this.$store.dispatch('addTodo', this.todo);
       }
     }
   }
