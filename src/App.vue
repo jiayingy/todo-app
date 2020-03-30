@@ -22,7 +22,7 @@ export default {
   },
   async created() {
     await this.createDb();
-    this.$store.commit('getTodos');
+    this.$store.commit('getDbTodos');
   },
   methods: {
     async createDb() {

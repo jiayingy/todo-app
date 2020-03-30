@@ -18,7 +18,7 @@ export const storeTodo = {
     createDb(state, db) {
       state.db = db;
     },
-    getTodos(state) {
+    getDbTodos(state) {
       const transaction = state.db.transaction('todos', 'readonly');
       const objStore = transaction.objectStore('todos');
       state.list = []
@@ -30,45 +30,87 @@ export const storeTodo = {
         }
       }
     },
+    updateLocalTodos(state, payload) {
+      switch (payload.action) {
+        case 'add':
+          state.list = [
+            ...state.list,
+            payload.todo
+          ];
+          break;
+        case 'delete': {
+          const deleteIndex = state.list.findIndex(val => 
+            val.timestamp === payload.todo.timestamp);
+          if (deleteIndex >= 0) {
+            state.list = [
+              ...state.list.slice(0, deleteIndex),
+              ...state.list.slice(deleteIndex + 1, state.list.length)
+            ];
+          }
+          break;
+        }
+        case 'update': {
+          const updateIndex = state.list.findIndex(val => 
+            val.timestamp === payload.todo.timestamp);
+          if (updateIndex >= 0) {
+            state.list = [
+              ...state.list.slice(0, updateIndex),
+              payload.todo,
+              ...state.list.slice(updateIndex + 1, state.list.length)
+            ];
+          }
+          break;
+        }
+        default:
+          break;
+      }
+    }
   },
   actions: {
-    addTodo({ state, commit }, newTodo) {
+    addTodo({ state, commit }, todo) {
       let transaction = state.db.transaction('todos', 'readwrite');
       let objStore = transaction.objectStore('todos');
-      objStore.put({
-        content: newTodo,
+      const newTodo = {
+        content: todo,
         timestamp: Date.now(),
         completed: false,
-      });
+      }
+      objStore.put(newTodo);
 
       transaction.oncomplete = (event) => {
         // alert('todo added');
       }
-
-      commit('getTodos');
+      commit('updateLocalTodos', {
+        todo: newTodo,
+        action: 'add'
+      });
     },
-    toggleStatus({state, commit}, timestamp) {
-      let todoItem = state.list.find(val => val.timestamp === timestamp);
-
-      todoItem = {
-        ...todoItem,
-        completed: !todoItem.completed
+    updateTodo({state, commit}, todo) {
+      const newTodo = {
+        ...todo,
+        completed: !todo.completed
       }
 
       const transaction = state.db.transaction('todos', 'readwrite');
       const objStore = transaction.objectStore('todos');
-      const req = objStore.put(todoItem);
+      const req = objStore.put(newTodo);
       req.onsuccess = (event) => {
-        commit('getTodos');
+        commit('updateLocalTodos', {
+          todo: newTodo,
+          action: 'update'
+        });
       }
     },
-    deleteTodo({state, commit}, timestamp) {
+    deleteTodo({state, commit}, todo) {
       let transaction = state.db.transaction('todos', 'readwrite');
       const objStore = transaction.objectStore('todos');
-      const req = objStore.delete(timestamp);
+      const req = objStore.delete(todo.timestamp);
 
       req.onsuccess = (event) => {
-        commit('getTodos');
+        commit('updateLocalTodos', {
+          todo,
+          action: 'delete'
+        });
       }
     }
   }

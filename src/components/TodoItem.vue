@@ -2,7 +2,7 @@
   <div class="todo">
     <div
       class="todo-mark-complete"
-      @click="toggleStatus"
+      @click="updateTodo"
     >
       <i
         class="material-icons"
@@ -41,11 +41,11 @@ export default {
     }
   },
   methods: {
-    toggleStatus() {
-      this.$store.dispatch('toggleStatus', this.todo.timestamp);
+    updateTodo() {
+      this.$store.dispatch('updateTodo', this.todo);
     },
     deleteTodo() {
-      this.$store.dispatch('deleteTodo', this.todo.timestamp);
+      this.$store.dispatch('deleteTodo', this.todo);
     }
   }
 }
