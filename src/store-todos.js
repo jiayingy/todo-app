@@ -38,6 +38,7 @@ export const storeTodo = {
       objStore.put({
         content: newTodo,
         timestamp: Date.now(),
+        completed: false,
       });
 
       transaction.oncomplete = (event) => {
@@ -46,12 +47,12 @@ export const storeTodo = {
 
       commit('getTodos');
     },
-    markComplete({state, commit}, timestamp) {
+    toggleStatus({state, commit}, timestamp) {
       let todoItem = state.list.find(val => val.timestamp === timestamp);
 
       todoItem = {
         ...todoItem,
-        completed: true
+        completed: !todoItem.completed
       }
 
       const transaction = state.db.transaction('todos', 'readwrite');
