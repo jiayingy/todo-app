@@ -18,19 +18,10 @@ export const storeTodo = {
     createDb(state, db) {
       state.db = db;
     },
-    markComplete(state, index) {
-      state.list = [
-        ...state.list.slice(0, index),
-        {
-          ...state.list[index],
-          completed: true
-        },
-        ...state.list.slice(index+1)
-      ];
-    },
     getTodos(state) {
       const transaction = state.db.transaction('todos', 'readonly');
       const objStore = transaction.objectStore('todos');
+      state.list = []
       objStore.openCursor().onsuccess = (event) => {
         let cursor = event.target.result;
         if(cursor) {
@@ -38,7 +29,7 @@ export const storeTodo = {
           cursor.continue();
         }
       }
-    }
+    },
   },
   actions: {
     addTodo({ state, commit }, newTodo) {
@@ -54,6 +45,21 @@ export const storeTodo = {
       }
 
       commit('getTodos');
+    },
+    markComplete({state, commit}, timestamp) {
+      let todoItem = state.list.find(val => val.timestamp === timestamp);
+
+      todoItem = {
+        ...todoItem,
+        completed: true
+      }
+
+      const transaction = state.db.transaction('todos', 'readwrite');
+      const objStore = transaction.objectStore('todos');
+      const req = objStore.put(todoItem);
+      req.onsuccess = (event) => {
+        commit('getTodos');
+      }
     }
   }
 }

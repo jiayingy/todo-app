@@ -40,7 +40,7 @@ export default {
   methods: {
     markComplete() {
       if (!this.todo.completed) {
-        this.$store.commit('markComplete', this.todo.index);
+        this.$store.dispatch('markComplete', this.todo.timestamp);
       }
     }
   }
