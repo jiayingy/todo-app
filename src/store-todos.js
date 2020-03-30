@@ -42,7 +42,7 @@ export const storeTodo = {
       });
 
       transaction.oncomplete = (event) => {
-        alert('todo added');
+        // alert('todo added');
       }
 
       commit('getTodos');
@@ -58,6 +58,15 @@ export const storeTodo = {
       const transaction = state.db.transaction('todos', 'readwrite');
       const objStore = transaction.objectStore('todos');
       const req = objStore.put(todoItem);
+      req.onsuccess = (event) => {
+        commit('getTodos');
+      }
+    },
+    deleteTodo({state, commit}, timestamp) {
+      let transaction = state.db.transaction('todos', 'readwrite');
+      const objStore = transaction.objectStore('todos');
+      const req = objStore.delete(timestamp);
+
       req.onsuccess = (event) => {
         commit('getTodos');
       }

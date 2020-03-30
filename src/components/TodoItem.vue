@@ -21,7 +21,10 @@
     >
       {{ todo.content }}
     </div>
-    <div class="todo-delete">
+    <div
+      class="todo-delete"
+      @click="deleteTodo"
+    >
       <i class="material-icons">
         delete
       </i>
@@ -40,6 +43,9 @@ export default {
   methods: {
     toggleStatus() {
       this.$store.dispatch('toggleStatus', this.todo.timestamp);
+    },
+    deleteTodo() {
+      this.$store.dispatch('deleteTodo', this.todo.timestamp);
     }
   }
 }
