@@ -1,7 +1,6 @@
 export const storeTodo = {
   state: {
     db: null,
-    dbError: null,
     list: []
   },
   getters: {
@@ -16,6 +15,9 @@ export const storeTodo = {
     }
   },
   mutations: {
+    createDb(state, db) {
+      state.db = db;
+    },
     markComplete(state, index) {
       state.list = [
         ...state.list.slice(0, index),
@@ -25,27 +27,6 @@ export const storeTodo = {
         },
         ...state.list.slice(index+1)
       ];
-    },
-    createDb(state) {
-      return new Promise((res, rej) => {
-        let dbReq = indexedDB.open('todo-app', 1);
-        dbReq.onupgradeneeded = (event) => {
-          state.db = event.target.result;
-          state.db.createObjectStore('todos', {
-            autoIncrement: true,
-            keyPath: 'timestamp'
-          })
-        }
-  
-        dbReq.onsuccess = (event) => {
-          state.db = event.target.result;
-          res(state.db)
-        }
-        dbReq.onerror = (event) => {
-          state.dbError = true;
-          rej(state.dbError)
-        }
-      })
     },
     getTodos(state) {
       const transaction = state.db.transaction('todos', 'readonly');
@@ -60,10 +41,6 @@ export const storeTodo = {
     }
   },
   actions: {
-    async createDb({ commit }) {
-      await commit('createDb')
-      commit('getTodos');
-    },
     addTodo({ state, commit }, newTodo) {
       let transaction = state.db.transaction('todos', 'readwrite');
       let objStore = transaction.objectStore('todos');

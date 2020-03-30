@@ -19,7 +19,34 @@ export default {
     TodoAppHeader,
     TodoInput,
     TodoList
-  }
+  },
+  async created() {
+    await this.createDb();
+    this.$store.commit('getTodos');
+  },
+  methods: {
+    async createDb() {
+      const db = await new Promise((res, rej) => {
+      let dbReq = indexedDB.open('todo-app', 1);
+      dbReq.onupgradeneeded = (event) => {
+        let db = event.target.result;
+        db.createObjectStore('todos', {
+          autoIncrement: true,
+          keyPath: 'timestamp'
+        });
+        res(db);
+      }
+      dbReq.onsuccess = (event) => {
+        res(event.target.result);
+      }
+      dbReq.onerror = (event) => {
+        const dbError = event;
+        rej('Error');
+      }
+    });
+    this.$store.commit('createDb', db);
+    }
+  },
 };
 </script>
 

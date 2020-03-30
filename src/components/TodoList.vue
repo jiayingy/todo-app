@@ -39,9 +39,6 @@ export default {
       return this.$store.getters.completed;
     }
   },
-  created() {
-    this.$store.dispatch('createDb');
-  },
 }
 </script>
 
