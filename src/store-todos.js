@@ -18,11 +18,11 @@ export const storeTodo = {
     createDb(state, db) {
       state.db = db;
     },
-    getDbTodos(state) {
+    getDbTodos(state, query = null) {
       const transaction = state.db.transaction('todos', 'readonly');
       const objStore = transaction.objectStore('todos');
       state.list = []
-      objStore.openCursor().onsuccess = (event) => {
+      objStore.openCursor(query).onsuccess = (event) => {
         let cursor = event.target.result;
         if(cursor) {
           state.list.push(cursor.value);
