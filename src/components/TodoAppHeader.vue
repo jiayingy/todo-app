@@ -60,6 +60,11 @@ export default {
       });
     },
   },
+  watch: {
+    selectedDate(val) {
+      this.$emit('updateDate', val);
+    }
+  },
   created() {
     window.addEventListener('click', this.handleClickEvent);
   },
