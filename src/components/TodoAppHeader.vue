@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import CalendarPicker from '@jiayingy/vue-single-date-picker';
+import CalendarPicker from 'vue-single-date-picker';
 export default {
   components: {
     CalendarPicker
@@ -72,7 +72,6 @@ export default {
     },
     handleClickEvent(event) {
       this.clickPosX = event.clientX;
-      console.log(event.target);
       if (this.showCalendar) {
         const datePickerEl = document.getElementById('date-picker');
         const isWithinDatePicker = datePickerEl.contains(event.target);
@@ -90,7 +89,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@jiayingy/vue-single-date-picker/dist/vue-single-date-picker.css';
+@import '~vue-single-date-picker/dist/vue-single-date-picker.css';
 
 .header {
   text-align: center;
