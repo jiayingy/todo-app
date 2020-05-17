@@ -5,7 +5,7 @@
       @updateDate="(val) => date = val"
     />
     <div class="todo-wrapper grid__item">
-      <TodoInput />
+      <TodoInput :date="date" />
       <TodoList />
     </div>
   </div>
@@ -48,7 +48,7 @@ export default {
           let db = event.target.result;
           db.createObjectStore('todos', {
             autoIncrement: true,
-            keyPath: 'timestamp'
+            keyPath: 'date'
           });
           res(db);
         }

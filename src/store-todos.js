@@ -40,7 +40,7 @@ export const storeTodo = {
           break;
         case 'delete': {
           const deleteIndex = state.list.findIndex(val => 
-            val.timestamp === payload.todo.timestamp);
+            val.created === payload.todo.created);
           if (deleteIndex >= 0) {
             state.list = [
               ...state.list.slice(0, deleteIndex),
@@ -51,7 +51,7 @@ export const storeTodo = {
         }
         case 'update': {
           const updateIndex = state.list.findIndex(val => 
-            val.timestamp === payload.todo.timestamp);
+            val.created === payload.todo.created);
           if (updateIndex >= 0) {
             state.list = [
               ...state.list.slice(0, updateIndex),
@@ -67,12 +67,13 @@ export const storeTodo = {
     }
   },
   actions: {
-    addTodo({ state, commit }, todo) {
+    addTodo({ state, commit }, { todo, date }) {
       let transaction = state.db.transaction('todos', 'readwrite');
       let objStore = transaction.objectStore('todos');
       const newTodo = {
         content: todo,
-        timestamp: Date.now(),
+        date,
+        created: Date.now(),
         completed: false,
       }
       objStore.put(newTodo);
@@ -104,7 +105,7 @@ export const storeTodo = {
     deleteTodo({state, commit}, todo) {
       let transaction = state.db.transaction('todos', 'readwrite');
       const objStore = transaction.objectStore('todos');
-      const req = objStore.delete(todo.timestamp);
+      const req = objStore.delete(todo.date);
 
       req.onsuccess = (event) => {
         commit('updateLocalTodos', {

@@ -2,12 +2,12 @@
   <div class="todo-list">
     <TodoItem
       v-for="todo in undone"
-      :key="todo.timestamp"
+      :key="todo.created"
       :todo="todo"
     />
     <TodoItem
       v-for="todo in completed"
-      :key="todo.timestamp"
+      :key="todo.created"
       :todo="todo"
     />
   </div>
