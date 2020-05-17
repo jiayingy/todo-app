@@ -12,18 +12,24 @@
       id="date-picker"
       class="date-picker"
     >
+      <span class="material-icons date-picker-arrow">
+        chevron_left
+      </span>
       <h5
         class="date"
         @click="toggleCalendar"
       >
         {{ dayOfWeek }}, {{ date }} {{ month }} {{ year }}
       </h5>
-      <CalendarPicker
-        v-show="showCalendar"
-        :style="{left: `${clickPosX}px`}"
-        @selectDate="updateSelectedDate"
-      />
+      <span class="material-icons date-picker-arrow">
+        chevron_right
+      </span>
     </div>
+    <CalendarPicker
+      v-show="showCalendar"
+      :style="{left: `${clickPosX}px`}"
+      @selectDate="updateSelectedDate"
+    />
   </div>
 </template>
 
@@ -59,6 +65,11 @@ export default {
         year: 'numeric'
       });
     },
+  },
+  watch: {
+    selectedDate(val) {
+      this.$emit('updateDate', val);
+    }
   },
   created() {
     window.addEventListener('click', this.handleClickEvent);
@@ -111,11 +122,20 @@ export default {
 
 .date-picker {
   position: relative;
-  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   .calendar-view {
     position: absolute;
     left: 50%;
     min-width: 300px;
+  }
+
+  .date,
+  .date-picker-arrow {
+    cursor: pointer;
   }
 }
 </style>
