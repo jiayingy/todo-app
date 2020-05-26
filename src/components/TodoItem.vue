@@ -18,6 +18,7 @@
       :style="{
         textDecoration: `${todo.completed ? 'line-through' : 'none'}`
       }"
+      :title="todo.content"
     >
       {{ todo.content }}
     </div>
