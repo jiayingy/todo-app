@@ -16,6 +16,12 @@
 <script>
 const TODO_MAX_CHARS = 250;
 export default {
+  props: {
+    date: {
+      type: Date,
+      default: new Date(),
+    }
+  },
   data() {
     return {
       todo: '',
@@ -45,7 +51,10 @@ export default {
   methods: {
     addNewTodo() {
       if (this.todo) {
-        this.$store.dispatch('addTodo', this.todo);
+        this.$store.dispatch('addTodo', {
+          todo: this.todo,
+          date: this.date.getTime(),
+        });
       }
     }
   }

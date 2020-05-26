@@ -12,7 +12,10 @@
       id="date-picker"
       class="date-picker"
     >
-      <span class="material-icons date-picker-arrow">
+      <span
+        class="material-icons date-picker-arrow"
+        @click="toggleDate('back')"
+      >
         chevron_left
       </span>
       <h5
@@ -21,20 +24,26 @@
       >
         {{ dayOfWeek }}, {{ date }} {{ month }} {{ year }}
       </h5>
-      <span class="material-icons date-picker-arrow">
+      <span
+        class="material-icons date-picker-arrow"
+        @click="toggleDate('forward')"
+      >
         chevron_right
       </span>
+      <CalendarPicker
+        v-show="showCalendar"
+        :date="selectedDateObj"
+        @selectDate="updateSelectedDate"
+      />
     </div>
-    <CalendarPicker
-      v-show="showCalendar"
-      :style="{left: `${clickPosX}px`}"
-      @selectDate="updateSelectedDate"
-    />
   </div>
 </template>
 
 <script>
 import CalendarPicker from 'vue-single-date-picker';
+
+const ONE_DAY = 60 * 60 * 24 * 1000;
+
 export default {
   components: {
     CalendarPicker
@@ -43,7 +52,6 @@ export default {
     return {
       selectedDate: new Date(),
       showCalendar: false,
-      clickPosX: 0,
     };
   },
   computed: {
@@ -65,6 +73,16 @@ export default {
         year: 'numeric'
       });
     },
+    selectedDateObj() {
+      if (this.selectedDate) {
+        return {
+          date: this.selectedDate.getDate(),
+          month: this.selectedDate.getMonth(),
+          year: this.selectedDate.getFullYear()
+        }
+      }
+      return null;
+    }
   },
   watch: {
     selectedDate(val) {
@@ -82,7 +100,6 @@ export default {
       this.showCalendar = !this.showCalendar;
     },
     handleClickEvent(event) {
-      this.clickPosX = event.clientX;
       if (this.showCalendar) {
         const datePickerEl = document.getElementById('date-picker');
         const isWithinDatePicker = datePickerEl.contains(event.target);
@@ -94,6 +111,13 @@ export default {
     },
     updateSelectedDate(obj) {
       this.selectedDate = new Date(obj.year, obj.month, obj.date);
+    },
+    toggleDate(val) {
+      if (val === 'back') {
+        this.selectedDate = new Date(this.selectedDate.getTime() - ONE_DAY);
+      } else {
+        this.selectedDate = new Date(this.selectedDate.getTime() + ONE_DAY);
+      }
     }
   }
 };
@@ -101,6 +125,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '~vue-single-date-picker/dist/vue-single-date-picker.css';
+
+#single-date-picker {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: fit-content;
+}
 
 .header {
   text-align: center;
