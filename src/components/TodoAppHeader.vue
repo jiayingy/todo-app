@@ -52,7 +52,6 @@ export default {
     return {
       selectedDate: new Date(),
       showCalendar: false,
-      clickPosX: 0,
     };
   },
   computed: {
@@ -101,7 +100,6 @@ export default {
       this.showCalendar = !this.showCalendar;
     },
     handleClickEvent(event) {
-      this.clickPosX = event.clientX;
       if (this.showCalendar) {
         const datePickerEl = document.getElementById('date-picker');
         const isWithinDatePicker = datePickerEl.contains(event.target);
