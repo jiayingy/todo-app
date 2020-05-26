@@ -1,29 +1,8 @@
 # todo-app
+A simple todo-app
+[![Screenshot of todo-app](https://jiayingy.space/assets/images/screenshots/todo-app.png)](https://jiayingy.github.io/todo-app/)
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Features
+- add/delete/mark as done
+- todos are tied to the selected dates
+- able to add future/past todos
