@@ -126,6 +126,14 @@ export default {
 <style lang="scss" scoped>
 @import '~vue-single-date-picker/dist/vue-single-date-picker.css';
 
+#single-date-picker {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: fit-content;
+}
+
 .header {
   text-align: center;
   color: #e2b5b5;
